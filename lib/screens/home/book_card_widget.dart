@@ -31,6 +31,11 @@ class BookCardWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
                   ApiService.getMediumImage(book.coverId),
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/no-image.png'
+                    );
+                  },
                   fit: BoxFit.cover,
                 ),
               ),
@@ -45,7 +50,7 @@ class BookCardWidget extends StatelessWidget {
               ),
             ),
             Text(
-              book.publishYear.toString(),
+              book.publishYear != 0 ? book.publishYear.toString() : "N/A",
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),
