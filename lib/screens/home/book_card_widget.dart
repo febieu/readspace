@@ -24,8 +24,8 @@ class BookCardWidget extends StatelessWidget {
               constraints: BoxConstraints(
                 maxHeight: 150,
                 minHeight: 150,
-                maxWidth: 100,
-                minWidth: 100,
+                maxWidth: 105,
+                minWidth: 105,
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
