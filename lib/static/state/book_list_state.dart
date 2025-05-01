@@ -1,4 +1,4 @@
-import 'package:readspace/data/model/BookItem.dart';
+import 'package:readspace/data/model/book_item.dart';
 
 sealed class BookListResultState {}
 

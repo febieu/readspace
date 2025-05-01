@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:readspace/data/api/api_service.dart';
-import 'package:readspace/data/model/BookItem.dart';
+import 'package:readspace/data/model/book_item.dart';
 import 'package:shimmer/shimmer.dart';
 
 class BookCardWidget extends StatelessWidget {

@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readspace/provider/home/book_list_provider.dart';
+import 'package:readspace/screens/detail/detail_screen.dart';
 import 'package:readspace/screens/home/carousel_widget.dart';
-import 'package:readspace/static/state/restaurant_list_state.dart';
+import 'package:readspace/static/state/book_list_state.dart';
 
 import 'book_card_widget.dart';
 
@@ -98,7 +99,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: BookCardWidget(
                                         book: listScience[index],
                                         onTap: () {
-
+                                          final selectedBook = listScience[index];
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => DetailScreen(
+                                                    bookKey: selectedBook.key,
+                                                    bookItem: selectedBook,
+                                                ),
+                                              )
+                                          );
                                         }
                                     ),
                                   );
@@ -136,7 +146,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: BookCardWidget(
                                         book: listHumour[index],
                                         onTap: () {
-
+                                          final selectedBook = listHumour[index];
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => DetailScreen(
+                                                  bookKey: selectedBook.key,
+                                                  bookItem: selectedBook,
+                                                ),
+                                              )
+                                          );
                                         }
                                     ),
                                   );
@@ -174,7 +193,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: BookCardWidget(
                                         book: listRomance[index],
                                         onTap: () {
-
+                                          final selectedBook = listRomance[index];
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => DetailScreen(
+                                                  bookKey: selectedBook.key,
+                                                  bookItem: selectedBook,
+                                                ),
+                                              )
+                                          );
                                         }
                                     ),
                                   );
@@ -211,7 +239,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: BookCardWidget(
                                         book: listAction[index],
                                         onTap: () {
-
+                                          final selectedBook = listAction[index];
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) => DetailScreen(
+                                                  bookKey: selectedBook.key,
+                                                  bookItem: selectedBook,
+                                                ),
+                                              )
+                                          );
                                         }
                                     ),
                                   );

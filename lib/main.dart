@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readspace/data/api/api_service.dart';
+import 'package:readspace/provider/detail/detail_book_provider.dart';
 import 'package:readspace/provider/home/book_list_provider.dart';
 import 'package:readspace/screens/home/home_screen.dart';
 
@@ -13,6 +14,11 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (context) => BookListProvider(
+            context.read<ApiService>(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DetailBookProvider(
             context.read<ApiService>(),
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:readspace/data/api/api_service.dart';
-import 'package:readspace/data/model/BookItem.dart';
-import 'package:readspace/static/state/restaurant_list_state.dart';
+import 'package:readspace/data/model/book_item.dart';
+import 'package:readspace/static/state/book_list_state.dart';
 
 class BookListProvider extends ChangeNotifier {
   final ApiService _apiService;

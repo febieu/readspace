@@ -2,17 +2,28 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:readspace/data/model/book_list_response.dart';
+import 'package:readspace/data/model/detail_book_response.dart';
 
 class ApiService {
   static const String baseUrl = "https://openlibrary.org/";
 
-  Future<BookListResponse> fetchBookList() async{
-    final response = await http.get(Uri.parse("$baseUrl/subjects/funny.json?limit=10"));
+  Future<BookListResponse> fetchBookListBasedOnSubject(String subject) async {
+    final response = await http.get(Uri.parse("$baseUrl/subjects/$subject.json?limit=10"));
 
     if(response.statusCode == 200){
       return BookListResponse.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception('Failed to load Book List');
+      throw Exception('Failed to fetch Book List');
+    }
+  }
+
+  Future<DetailBookResponse> fetchDetailBook (String key) async {
+    final response = await http.get(Uri.parse("$baseUrl$key.json"));
+
+    if(response.statusCode == 200){
+      return DetailBookResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to fetch Detail Book');
     }
   }
 
@@ -26,16 +37,6 @@ class ApiService {
 
   static String getLargeImage(coverId) {
     return "https://covers.openlibrary.org/b/olid/$coverId-L.jpg";
-  }
-
-  Future<BookListResponse> fetchBookListBasedOnSubject(String subject) async {
-    final response = await http.get(Uri.parse("$baseUrl/subjects/$subject.json?limit=10"));
-
-    if(response.statusCode == 200){
-      return BookListResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load Book List');
-    }
   }
 
 }

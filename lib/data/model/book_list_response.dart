@@ -1,4 +1,4 @@
-import 'package:readspace/data/model/BookItem.dart';
+import 'package:readspace/data/model/book_item.dart';
 
 class BookListResponse {
   final int workCount;
