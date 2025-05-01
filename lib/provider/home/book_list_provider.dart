@@ -24,11 +24,11 @@ class BookListProvider extends ChangeNotifier {
       final result = await _apiService.fetchBookListBasedOnSubject(subject);
       _bookLists[subject] = result.works;
       _states[subject] = BookListLoadedState(result.works);
+      notifyListeners();
     } catch (e) {
       _states[subject] = BookListErrorState(e.toString());
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 
   // Future<void> fetchBookList(String subject) async {
