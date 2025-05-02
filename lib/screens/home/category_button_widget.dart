@@ -18,15 +18,15 @@ class CategoryButtonWidget extends StatelessWidget {
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         side: BorderSide(
-          color: isSelected ? Colors.blue : Colors.grey,
+          color: isSelected ? Colors.purple.shade600 : Colors.purple.shade200 ,
         ),
         backgroundColor:
-        isSelected ? Color.fromARGB(25, 33, 150, 243) : Colors.transparent,
+        isSelected ? Colors.purple.shade400 : Colors.transparent,
       ),
       child: Text(
         label,
         style: TextStyle(
-          color: isSelected ? Colors.blue : Colors.grey,
+          color: isSelected ? Colors.white : Colors.black45,
         ),
       ),
     );
