@@ -76,7 +76,7 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox.square(dimension: 4),
                     Expanded(
                       child: Text(
-                        bookItem.authors.map((a) => a.name).join(', ') ?? "N/A",
+                        bookItem.authors.map((a) => a.name).join(', '),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
@@ -129,7 +129,7 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        detailBook.subjects.join(', ') ?? "N/A",
+                        detailBook.subjects.join(', '),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
