@@ -56,7 +56,7 @@ class BodyOfDetailWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  bookItem.title ?? "N/A",
+                  bookItem.title,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -150,7 +150,7 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        (detailBook.subjectPeople.isNotEmpty ?? false)
+                        (detailBook.subjectPeople.isNotEmpty)
                             ? detailBook.subjectPeople.join(', ')
                             : "N/A",
                         overflow: TextOverflow.ellipsis,
@@ -173,7 +173,7 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        (detailBook.subjectPlaces.isNotEmpty ?? false)
+                        (detailBook.subjectPlaces.isNotEmpty)
                             ? detailBook.subjectPlaces.join(', ')
                             : "N/A",
                         overflow: TextOverflow.ellipsis,
@@ -196,7 +196,7 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        (detailBook.subjectTimes.isNotEmpty ?? false)
+                        (detailBook.subjectTimes.isNotEmpty)
                             ? detailBook.subjectTimes.join(', ')
                             : "N/A",
                         overflow: TextOverflow.ellipsis,
