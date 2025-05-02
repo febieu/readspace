@@ -31,26 +31,30 @@ class BookCardWidget extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  ApiService.getMediumImage(book.coverId),
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
-                        width: 105,
-                        height: 150,
-                        color: Colors.white,
-                      ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      'assets/images/no-image.png'
-                    );
-                  },
-                  fit: BoxFit.cover,
+                child: Hero (
+                  tag: book.coverId,
+                  child: Image.network(
+                    ApiService.getMediumImage(book.coverId),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 105,
+                          height: 150,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/no-image.png',
+                        fit: BoxFit.cover,
+                      );
+                    },
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

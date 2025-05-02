@@ -27,8 +27,8 @@ class BodyOfDetailWidget extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.only(
-              bottomRight: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(32),
+              bottomLeft: Radius.circular(32),
             ),
             child: Hero(
               tag: bookItem.coverId,
@@ -36,17 +36,27 @@ class BodyOfDetailWidget extends StatelessWidget {
                 ApiService.getLargeImage(bookItem.coverId),
                 fit: BoxFit.cover,
                 width: double.infinity,
-                height: 500,
+                height: 450,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/images/no-image.png',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 450,
+                  );
+                },
               ),
             ),
           ),
+
+          // Title
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  bookItem.title,
+                  bookItem.title ?? "N/A",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -66,13 +76,15 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox.square(dimension: 4),
                     Expanded(
                       child: Text(
-                        bookItem.authors.map((a) => a.name).join(', '),
+                        bookItem.authors.map((a) => a.name).join(', ') ?? "N/A",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
                     ),
                   ],
                 ),
+
+                // Published Year
                 const SizedBox.square(dimension: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,6 +115,8 @@ class BodyOfDetailWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+
+                // Category
                 const SizedBox.square(dimension: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,13 +129,15 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        detailBook.subjects.join(', '),
+                        detailBook.subjects.join(', ') ?? "N/A",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
                     ),
                   ],
                 ),
+
+                // Related People
                 const SizedBox.square(dimension: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,13 +150,17 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        detailBook.subjectPeople.join(', '),
+                        (detailBook.subjectPeople.isNotEmpty ?? false)
+                            ? detailBook.subjectPeople.join(', ')
+                            : "N/A",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
                     ),
                   ],
                 ),
+
+                // Locations
                 const SizedBox.square(dimension: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -153,13 +173,17 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        detailBook.subjectPlaces.join(', '),
+                        (detailBook.subjectPlaces.isNotEmpty ?? false)
+                            ? detailBook.subjectPlaces.join(', ')
+                            : "N/A",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
                     ),
                   ],
                 ),
+
+                // Time Periods
                 const SizedBox.square(dimension: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,19 +196,25 @@ class BodyOfDetailWidget extends StatelessWidget {
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(
-                        detailBook.subjectTimes.join(', '),
+                        (detailBook.subjectTimes.isNotEmpty ?? false)
+                            ? detailBook.subjectTimes.join(', ')
+                            : "N/A",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                       ),
                     ),
                   ],
                 ),
+
+                // Description
                 const SizedBox.square(dimension: 4),
                 Text(
                     "Description:"
                 ),
                 Text(
-                  detailBook.description,
+                  (detailBook.description.trim().isEmpty)
+                      ? "N/A"
+                      : detailBook.description,
                 ),
                 const SizedBox.square(dimension: 4),
                 const SizedBox.square(dimension: 4),
