@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:readspace/provider/home/book_list_provider.dart';
 import 'package:readspace/screens/detail/detail_screen.dart';
 import 'package:readspace/screens/home/carousel_widget.dart';
 import 'package:readspace/screens/home/category_button_widget.dart';
+import 'package:readspace/screens/search/search_screen.dart';
 import 'package:readspace/static/state/book_list_state.dart';
 
 import 'book_card_widget.dart';
@@ -48,6 +50,23 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const SearchScreen(),
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.search_outlined,
+                color: Colors.purple.shade500,
+              ),
+          ),
+          const SizedBox(width: 12)
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -149,7 +168,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Show loading, error, or book list
                       if (state is BookListLoadingState)
-                        const Center(child: CircularProgressIndicator())
+                        Center(
+                            child: Lottie.asset('assets/animations/loading.json')
+                        )
                       else if (state is BookListLoadedState && bookList != null)
                         GridView.builder(
                           shrinkWrap: true,
@@ -162,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           itemBuilder: (context, index) {
                             return BookCardWidget(
-                              book: bookList[index],
+                              bookItem: bookList[index],
                               onTap: () {
                                 final selectedBook = bookList[index];
                                 Navigator.push(

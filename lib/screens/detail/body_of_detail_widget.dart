@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:readspace/data/api/api_service.dart';
 import 'package:readspace/data/model/book_item.dart';
 import 'package:readspace/data/model/detail_book_response.dart';
+import 'package:shimmer/shimmer.dart';
 
 
 class BodyOfDetailWidget extends StatelessWidget {
@@ -30,22 +32,30 @@ class BodyOfDetailWidget extends StatelessWidget {
               bottomRight: Radius.circular(32),
               bottomLeft: Radius.circular(32),
             ),
-            child: Hero(
-              tag: bookItem.coverId,
-              child: Image.network(
-                ApiService.getLargeImage(bookItem.coverId),
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 450,
-                errorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/images/no-image.png',
-                    fit: BoxFit.cover,
-                    width: double.infinity,
+            child: Image.network(
+              ApiService.getLargeImage(bookItem.coverId),
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 450,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
                     height: 450,
-                  );
-                },
-              ),
+                    color: Colors.white,
+                  ),
+                );
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'assets/images/no-image.png',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 450,
+                );
+              },
             ),
           ),
 

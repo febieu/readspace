@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:readspace/data/model/book_item.dart';
 import 'package:readspace/provider/detail/detail_book_provider.dart';
@@ -36,8 +37,8 @@ class _DetailScreenState extends State<DetailScreen> {
       body: Consumer<DetailBookProvider>(
         builder: (context, value, child) {
           return switch (value.resultState) {
-            DetailBookLoadingState() => const Center(
-              child: CircularProgressIndicator(),
+            DetailBookLoadingState() =>  Center(
+              child: Lottie.asset('assets/animations/loading.json')
             ),
             DetailBookLoadedState(data: var book) =>
               BodyOfDetailWidget(
