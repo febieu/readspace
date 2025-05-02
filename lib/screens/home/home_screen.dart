@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:readspace/provider/home/book_list_provider.dart';
 import 'package:readspace/screens/detail/detail_screen.dart';
 import 'package:readspace/screens/home/carousel_widget.dart';
+import 'package:readspace/screens/home/category_button_widget.dart';
 import 'package:readspace/static/state/book_list_state.dart';
 
 import 'book_card_widget.dart';
@@ -18,13 +19,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  String selectedCategory = 'adventure';
+
   @override
   void initState() {
     super.initState();
 
     Future.microtask(() {
+      context.read<BookListProvider>().fetchBookList("adventure");
       context.read<BookListProvider>().fetchBookList("science");
-      context.read<BookListProvider>().fetchBookList("humour");
+      context.read<BookListProvider>().fetchBookList("thriller");
       context.read<BookListProvider>().fetchBookList("romance");
       context.read<BookListProvider>().fetchBookList("action");
     });
@@ -47,224 +52,142 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                CarouselWidget(),
-                const SizedBox(height: 12),
+          child: Column(
+            children: [
+              CarouselWidget(),
+              const SizedBox(height: 12),
 
-                Consumer<BookListProvider>(
-                    builder: (context, value, child) {
-                      final stateScience = value.states['science'];
-                      final stateHumour = value.states['humour'];
-                      final stateRomance = value.states['romance'];
-                      final stateAction = value.states['action'];
-                      final listScience = value.bookLists['science'];
-                      final listHumour = value.bookLists['humour'];
-                      final listRomance = value.bookLists['romance'];
-                      final listAction = value.bookLists['action'];
+              // Category Button
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    CategoryButtonWidget(
+                      label: 'Adventure',
+                      isSelected: selectedCategory == 'adventure',
+                      onPressed: () {
+                        setState(() {
+                          selectedCategory = 'adventure';
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    CategoryButtonWidget(
+                      label: 'Romance',
+                      isSelected: selectedCategory == 'romance',
+                      onPressed: () {
+                        setState(() {
+                          selectedCategory = 'romance';
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    CategoryButtonWidget(
+                      label: 'Action',
+                      isSelected: selectedCategory == 'action',
+                      onPressed: () {
+                        setState(() {
+                          selectedCategory = 'action';
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    CategoryButtonWidget(
+                      label: 'Thriller',
+                      isSelected: selectedCategory == 'thriller',
+                      onPressed: () {
+                        setState(() {
+                          selectedCategory = 'thriller';
+                        });
+                      },
+                    ),
+                    const SizedBox(width: 8),
+                    CategoryButtonWidget(
+                      label: 'Science',
+                      isSelected: selectedCategory == 'science',
+                      onPressed: () {
+                        setState(() {
+                          selectedCategory = 'science';
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
 
-                      return Column(
+              const SizedBox(height: 12),
+
+              // Consumer
+              Consumer<BookListProvider>(
+                builder: (context, value, child) {
+                  // Fetch state and list based on selected category
+                  final state = value.states[selectedCategory];
+                  final bookList = value.bookLists[selectedCategory];
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Show category title
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-
-                          // Section: Science
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.science,
-                                size: 24,
-                              ),
-                              Text(
-                                  "Science",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold
-                                  )
-                              ),
-                            ],
+                          Icon(
+                            selectedCategory == 'science' ? Icons.science :
+                            selectedCategory == 'thriller' ? Icons.tag_faces_rounded :
+                            selectedCategory == 'romance' ? Icons.favorite_sharp :
+                            selectedCategory == 'action' ? Icons.whatshot : Icons.category,
+                            size: 24,
                           ),
-                          const SizedBox(height: 8),
-                          if (stateScience is BookListLoadingState)
-                            const Center(child: CircularProgressIndicator())
-                          else if (stateScience is BookListLoadedState && listScience != null)
-                            SizedBox(
-                              height: 210,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: listScience.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: BookCardWidget(
-                                        book: listScience[index],
-                                        onTap: () {
-                                          final selectedBook = listScience[index];
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => DetailScreen(
-                                                    bookKey: selectedBook.key,
-                                                    bookItem: selectedBook,
-                                                ),
-                                              )
-                                          );
-                                        }
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          else if (stateScience is BookListErrorState)
-                              Text('Error loading science books'),
-
-                          const SizedBox(height: 16),
-
-                          // Section: Humour
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.tag_faces_rounded,
-                                size: 24,
-                              ),
-                              Text("Humour", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                            ],
+                          const SizedBox(width: 4),
+                          Text(
+                            selectedCategory[0].toUpperCase() + selectedCategory.substring(1),
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          const SizedBox(height: 8),
-                          if (stateHumour is BookListLoadingState)
-                            const Center(child: CircularProgressIndicator())
-                          else if (stateHumour is BookListLoadedState && listHumour != null)
-                            SizedBox(
-                              height: 210,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: listHumour.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: BookCardWidget(
-                                        book: listHumour[index],
-                                        onTap: () {
-                                          final selectedBook = listHumour[index];
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => DetailScreen(
-                                                  bookKey: selectedBook.key,
-                                                  bookItem: selectedBook,
-                                                ),
-                                              )
-                                          );
-                                        }
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          else if (stateHumour is BookListErrorState)
-                              Text('Error loading humour books'),
-
-                          const SizedBox(height: 16),
-
-                          // Section: Romance
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.favorite_sharp,
-                                size: 24,
-                              ),
-                              Text("Romance", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          if (stateRomance is BookListLoadingState)
-                            const Center(child: CircularProgressIndicator())
-                          else if (stateRomance is BookListLoadedState && listRomance != null)
-                            SizedBox(
-                              height: 210,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: listRomance.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: BookCardWidget(
-                                        book: listRomance[index],
-                                        onTap: () {
-                                          final selectedBook = listRomance[index];
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => DetailScreen(
-                                                  bookKey: selectedBook.key,
-                                                  bookItem: selectedBook,
-                                                ),
-                                              )
-                                          );
-                                        }
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          else if (stateRomance is BookListErrorState)
-                              Text('Error loading romance books'),
-
-                          const SizedBox(height: 16),
-                          // Section: Action
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.whatshot,
-                                size: 24,
-                              ),
-                              Text("Action", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          if (stateAction is BookListLoadingState)
-                            const Center(child: CircularProgressIndicator())
-                          else if (stateAction is BookListLoadedState && listAction != null)
-                            SizedBox(
-                              height: 210,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: listAction.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: BookCardWidget(
-                                        book: listAction[index],
-                                        onTap: () {
-                                          final selectedBook = listAction[index];
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) => DetailScreen(
-                                                  bookKey: selectedBook.key,
-                                                  bookItem: selectedBook,
-                                                ),
-                                              )
-                                          );
-                                        }
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          else if (stateAction is BookListErrorState)
-                              Text('Error loading action books'),
                         ],
-                      );
-                    }
-                ),
-              ],
-            ),
+                      ),
+                      const SizedBox(height: 8),
+
+                      // Show loading, error, or book list
+                      if (state is BookListLoadingState)
+                        const Center(child: CircularProgressIndicator())
+                      else if (state is BookListLoadedState && bookList != null)
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: bookList.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, // 3 kolom
+                            mainAxisSpacing: 4,
+                            childAspectRatio: 0.57, // sesuaikan dengan ukuran card kamu
+                          ),
+                          itemBuilder: (context, index) {
+                            return BookCardWidget(
+                              book: bookList[index],
+                              onTap: () {
+                                final selectedBook = bookList[index];
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailScreen(
+                                      bookKey: selectedBook.key,
+                                      bookItem: selectedBook,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        )
+                      else if (state is BookListErrorState)
+                          Text('Error loading ${selectedCategory} books'),
+                    ],
+                  );
+                },
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }

@@ -78,3 +78,4 @@ class BookCardWidget extends StatelessWidget {
     );
   }
 }
+

@@ -9,7 +9,7 @@ class ApiService {
 
   Future<BookListResponse> fetchBookListBasedOnSubject(String subject) async {
     final response = await http.get(
-        Uri.parse("$baseUrl/subjects/$subject.json?limit=10"));
+        Uri.parse("$baseUrl/subjects/$subject.json?limit=30"));
 
     if (response.statusCode == 200) {
       return BookListResponse.fromJson(jsonDecode(response.body));
