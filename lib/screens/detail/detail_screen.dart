@@ -38,7 +38,11 @@ class _DetailScreenState extends State<DetailScreen> {
         builder: (context, value, child) {
           return switch (value.resultState) {
             DetailBookLoadingState() =>  Center(
-              child: Lottie.asset('assets/animations/loading.json')
+              child: Lottie.asset(
+                'assets/animations/loading_spinner.json',
+                width: 160,
+                height: 160,
+              ),
             ),
             DetailBookLoadedState(data: var book) =>
               BodyOfDetailWidget(

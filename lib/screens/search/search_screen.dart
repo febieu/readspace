@@ -5,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:readspace/provider/search/search_provider.dart';
 import 'package:readspace/screens/detail/detail_screen.dart';
-import 'package:readspace/screens/home/book_card_widget.dart';
 import 'package:readspace/screens/search/book_row_item.dart';
 import 'package:readspace/static/state/search_state.dart';
 
@@ -44,8 +43,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<SearchProvider>(context, listen: false);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -135,7 +132,11 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Text("There is no result can be found"),
                       ),
                       SearchLoadingState() => Center(
-                          child: Lottie.asset('assets/animations/loading.json'),
+                          child: Lottie.asset(
+                            'assets/animations/loading_spinner.json',
+                            width: 160,
+                            height: 160,
+                          ),
                       ),
                       SearchErrorState() => Center(
                         child: Text("Error to show result from Search Book"),

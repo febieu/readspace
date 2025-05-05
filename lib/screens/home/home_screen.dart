@@ -169,8 +169,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Show loading, error, or book list
                       if (state is BookListLoadingState)
-                        Center(
-                            child: Lottie.asset('assets/animations/loading.json')
+                        Column(
+                          children: [
+                            SizedBox(height: 130,),
+                            Center(
+                                child: Lottie.asset(
+                                  'assets/animations/loading_spinner.json',
+                                  width: 150,
+                                  height: 150,
+                                ),
+                            ),
+                          ],
                         )
                       else if (state is BookListLoadedState && bookList != null)
                         GridView.builder(
@@ -178,9 +187,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           physics: const NeverScrollableScrollPhysics(),
                           itemCount: bookList.length,
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3, // 3 kolom
+                            crossAxisCount: 3,
                             mainAxisSpacing: 4,
-                            childAspectRatio: 0.57, // sesuaikan dengan ukuran card kamu
+                            childAspectRatio: 0.57,
                           ),
                           itemBuilder: (context, index) {
                             return BookCardWidget(
@@ -201,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         )
                       else if (state is BookListErrorState)
-                          Text('Error loading ${selectedCategory} books'),
+                          Text('Error loading $selectedCategory books'),
                     ],
                   );
                 },
