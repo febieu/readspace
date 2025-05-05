@@ -9,16 +9,11 @@ import 'package:shimmer/shimmer.dart';
 class BodyOfDetailWidget extends StatelessWidget {
   final BookItem bookItem;
   final DetailBookResponse detailBook;
-  final List<Author> author;
-  final Availability availability;
-
 
   const BodyOfDetailWidget ({
     super.key,
     required this.bookItem,
     required this.detailBook,
-    required this.author,
-    required this.availability,
   });
 
   @override

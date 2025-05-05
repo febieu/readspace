@@ -44,8 +44,6 @@ class _DetailScreenState extends State<DetailScreen> {
               BodyOfDetailWidget(
                   bookItem: widget.bookItem,
                   detailBook: book,
-                  author: widget.bookItem.authors,
-                  availability: widget.bookItem.availability,
               ),
             DetailBookErrorState(error: var message) => Center(
               child: Text(message),

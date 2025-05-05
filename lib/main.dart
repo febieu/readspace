@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:readspace/data/api/api_service.dart';
 import 'package:readspace/provider/detail/detail_book_provider.dart';
 import 'package:readspace/provider/home/book_list_provider.dart';
+import 'package:readspace/provider/search/search_provider.dart';
 import 'package:readspace/screens/home/home_screen.dart';
 
 void main() {
@@ -22,6 +23,11 @@ void main() {
             context.read<ApiService>(),
           ),
         ),
+        ChangeNotifierProvider(
+            create: (context) => SearchProvider(
+              context.read<ApiService>(),
+            )
+        ),
       ],
       child: const MyApp(),
     ),
@@ -37,7 +43,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ReadScape',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple.shade400),
         useMaterial3: true,
       ),
       home: const HomeScreen(),
