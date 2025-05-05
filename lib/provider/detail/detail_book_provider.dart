@@ -20,7 +20,7 @@ class DetailBookProvider extends ChangeNotifier {
       _resultState = DetailBookLoadedState(result);
       notifyListeners();
     } catch (e) {
-      _resultState = DetailBookErrorState("Gagal fetch");
+      _resultState = DetailBookErrorState("Error fetch Detail Book.");
       notifyListeners();
     }
   }

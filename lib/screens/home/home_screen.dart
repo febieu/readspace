@@ -41,12 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold (
       appBar: AppBar(
-        elevation: 2,
+        elevation: 4,
         centerTitle: true,
+        backgroundColor: Colors.purple.shade200,
         title: const Text(
           'ReadSpace',
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
