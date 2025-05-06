@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readspace/data/api/api_service.dart';
+import 'package:readspace/navigation/navigation.dart';
 import 'package:readspace/provider/detail/detail_book_provider.dart';
 import 'package:readspace/provider/home/book_list_provider.dart';
 import 'package:readspace/provider/search/search_provider.dart';
-import 'package:readspace/screens/home/home_screen.dart';
 
 void main() {
   runApp(
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple.shade400),
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      home: Navigation(),
     );
   }
 }
