@@ -97,12 +97,11 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                ElevatedButton(
+                FilledButton(
                   onPressed: () {
 
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple.shade400,
+                  style: FilledButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     minimumSize: Size(2, 2),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
