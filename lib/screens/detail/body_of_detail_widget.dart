@@ -58,12 +58,12 @@ class BodyOfDetailWidget extends StatelessWidget {
             ),
           ),
 
-          // Title dll
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Title
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -73,7 +73,7 @@ class BodyOfDetailWidget extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 18,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -89,162 +89,163 @@ class BodyOfDetailWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox.square(dimension: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                Table(
+                  columnWidths: const {
+                    0: IntrinsicColumnWidth(),
+                    1: FixedColumnWidth(16),
+                    2: IntrinsicColumnWidth(),
+                    3: FlexColumnWidth(),
+                  },
                   children: [
-                    Text(
-                        "Author",
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                    TableRow(
+                      children: [
+                        Text(
+                          "Author",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(),
+                        Text(": "),
+                        Text(
+                          bookItem.authors.map((a) => a.name).join(', '),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 74,),
-                    Text(":"),
-                    const SizedBox.square(dimension: 4),
-                    Expanded(
-                      child: Text(
-                        bookItem.authors.map((a) => a.name).join(', '),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
+                    TableRow(
+                      children: [
+                        Text(
+                          "Published Year",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(),
+                        Text(": "),
+                        Text(
+                          bookItem.publishYear == 0 ? "N/A" : bookItem.publishYear.toString(),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          "Edition",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(),
+                        Text(":"),
+                        Text(
+                          bookItem.edition.toString(),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          "Category",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(),
+                        Text(":"),
+                        Text(
+                          detailBook.subjects.join(', '),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          "Related People",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(),
+                        Text(":"),
+                        Text(
+                          (detailBook.subjectPeople.isNotEmpty)
+                              ? detailBook.subjectPeople.join(', ')
+                              : "N/A",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          "Locations ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(),
+                        Text(":"),
+                        Text(
+                          (detailBook.subjectPlaces.isNotEmpty)
+                              ? detailBook.subjectPlaces.join(', ')
+                              : "N/A",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Text(
+                          "Time Periods",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(),
+                        Text(":"),
+                        Text(
+                          (detailBook.subjectTimes.isNotEmpty)
+                              ? detailBook.subjectTimes.join(', ')
+                              : "N/A",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ],
                     ),
                   ],
                 ),
 
-                // Published Year
-                const SizedBox.square(dimension: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                        "Published Year"
-                    ),
-                    const SizedBox(width: 16),
-                    Text(":"),
-                    const SizedBox(width: 4),
-                    Text(
-                      bookItem.publishYear == 0 ? "N/A" : bookItem.publishYear.toString(),
-                    ),
-                  ],
-                ),
-                const SizedBox.square(dimension: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                        "Edition"
-                    ),
-                    const SizedBox(width: 73),
-                    Text(":"),
-                    const SizedBox(width: 4),
-                    Text(
-                      bookItem.edition.toString(),
-                    ),
-                  ],
-                ),
-
-                // Category
-                const SizedBox.square(dimension: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                        "Category"
-                    ),
-                    const SizedBox(width: 59),
-                    Text(":"),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        detailBook.subjects.join(', '),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
-                ),
-
-                // Related People
-                const SizedBox.square(dimension: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                        "Related People"
-                    ),
-                    const SizedBox(width: 17),
-                    Text(":"),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        (detailBook.subjectPeople.isNotEmpty)
-                            ? detailBook.subjectPeople.join(', ')
-                            : "N/A",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
-                ),
-
-                // Locations
-                const SizedBox.square(dimension: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                        "Locations "
-                    ),
-                    const SizedBox(width: 50),
-                    Text(":"),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        (detailBook.subjectPlaces.isNotEmpty)
-                            ? detailBook.subjectPlaces.join(', ')
-                            : "N/A",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
-                ),
-
-                // Time Periods
-                const SizedBox.square(dimension: 4),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                        "Time Periods"
-                    ),
-                    const SizedBox(width: 30),
-                    Text(":"),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        (detailBook.subjectTimes.isNotEmpty)
-                            ? detailBook.subjectTimes.join(', ')
-                            : "N/A",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ],
-                ),
-
-                // Description
-                const SizedBox.square(dimension: 4),
+                const SizedBox.square(dimension: 8),
                 Text(
-                    "Description:"
+                  "Description:",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
                 Text(
                   (detailBook.description.trim().isEmpty)
                       ? "N/A"
                       : detailBook.description,
                 ),
-                const SizedBox.square(dimension: 4),
-                const SizedBox.square(dimension: 4),
+
+
               ],
             ),
           ),
