@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               icon: Icon(
                 Icons.search_outlined,
-                color: Colors.purple.shade500,
+                color: Colors.black,
               ),
           ),
           const SizedBox(width: 12)

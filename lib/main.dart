@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:readspace/data/api/api_service.dart';
 import 'package:readspace/navigation/navigation.dart';
 import 'package:readspace/provider/detail/detail_book_provider.dart';
+import 'package:readspace/provider/favorite/favorite_provider.dart';
 import 'package:readspace/provider/home/book_list_provider.dart';
 import 'package:readspace/provider/search/search_provider.dart';
 
@@ -24,9 +25,14 @@ void main() {
           ),
         ),
         ChangeNotifierProvider(
-            create: (context) => SearchProvider(
+          create: (context) => SearchProvider(
+            context.read<ApiService>(),
+          )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(
               context.read<ApiService>(),
-            )
+          ),
         ),
       ],
       child: const MyApp(),

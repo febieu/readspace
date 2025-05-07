@@ -62,12 +62,19 @@ class BookCardWidget extends StatelessWidget {
                 bookItem.title,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
               ),
             ),
             Text(
               bookItem.publishYear != 0 ? bookItem.publishYear.toString() : "N/A",
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
+              style: TextStyle(
+                fontSize: 12,
+              ),
             ),
           ],
         ),

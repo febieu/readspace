@@ -9,11 +9,15 @@ import 'package:shimmer/shimmer.dart';
 class BodyOfDetailWidget extends StatelessWidget {
   final BookItem bookItem;
   final DetailBookResponse detailBook;
+  final bool isFavorite;
+  final VoidCallback toggleFavorite;
 
   const BodyOfDetailWidget ({
     super.key,
     required this.bookItem,
     required this.detailBook,
+    required this. isFavorite,
+    required this.toggleFavorite,
   });
 
   @override
@@ -54,18 +58,31 @@ class BodyOfDetailWidget extends StatelessWidget {
             ),
           ),
 
-          // Title
+          // Title dll
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  bookItem.title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      bookItem.title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: toggleFavorite,
+                      icon: Icon(
+                        isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border_outlined,
+                        color: isFavorite ? Colors.red : null,
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox.square(dimension: 4),
                 Row(

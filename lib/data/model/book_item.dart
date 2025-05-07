@@ -19,6 +19,19 @@ class BookItem {
     required this.availability,
   });
 
+  Map<String, dynamic> toJson() {
+    return {
+      'key': key,
+      'title': title,
+      'coverId': coverId,
+      'edition': edition,
+      'publishYear': publishYear,
+      'authors': authors.map((author) => author.toJson()).toList(),
+      'categories': categories,
+      'availability': availability.toJson(),
+    };
+  }
+
   factory BookItem.fromJson(Map<String, dynamic> json) {
     return BookItem(
       title: json['title'] ?? "",
@@ -35,6 +48,24 @@ class BookItem {
       availability: Availability.fromJson(json['availability'] ?? {}), // list
     );
   }
+
+  factory BookItem.fromLocalJson(Map<String, dynamic> json) {
+    return BookItem(
+      title: json['title'] ?? "",
+      key: json['key'] ?? "",
+      coverId: json['coverId'] ?? "",
+      // Ambil coverId dari SharedPreferences
+      edition: json['edition'] ?? 0,
+      publishYear: json['publishYear'] ?? 0,
+      authors: json['authors'] != null
+          ? List<Author>.from(json['authors'].map((x) => Author.fromJson(x)))
+          : <Author>[],
+      categories: json['categories'] != null
+          ? List<String>.from(json['categories'])
+          : <String>[],
+      availability: Availability.fromJson(json['availability'] ?? {}),
+    );
+  }
 }
 
 class Author {
@@ -45,6 +76,13 @@ class Author {
     required this.name,
     required this.key,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'key': key,
+      'name': name,
+    };
+  }
 
   factory Author.fromJson(Map<String, dynamic> json) {
     return Author(
@@ -64,6 +102,14 @@ class Availability {
     required this.statusToBorrow,
     required this.statusToRead,
 });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'isbn': isbn,
+      'available_to_borrow': statusToBorrow,
+      'is_readable': statusToRead,
+    };
+  }
 
   factory Availability.fromJson(Map<String, dynamic> json) {
     return Availability(

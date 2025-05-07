@@ -65,19 +65,47 @@ class BookRowItem extends StatelessWidget {
                       Text(
                         bookItem.title,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14
+                        ),
                       ),
-                      const SizedBox(height: 4),
                       Text(
-                        bookItem.authors.join(", "), // needtofix: buat response baru...
+                        bookItem.authors.isNotEmpty
+                            ? bookItem.authors.map((author) => author.name).join(", ")
+                            : "-",
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
                       ),
                       Text(
                         bookItem.publishYear != 0 ? bookItem.publishYear.toString() : "N/A",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 12,
+                        ),
                       ),
+                      Row(
+                        children: [
+                          Text(
+                            'Borrowable: ',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                          Icon(
+                            bookItem.availability.statusToBorrow ? Icons.check : Icons.cancel,
+                            color: bookItem.availability.statusToBorrow ? Colors.purple.shade400 : Colors.grey,
+                            size: 16,
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -88,7 +116,7 @@ class BookRowItem extends StatelessWidget {
           const SizedBox(height: 4,),
           Divider(
             color: Colors.grey[300],
-            thickness: 1.5,
+            thickness: 1,
           ),
         ],
       ),
